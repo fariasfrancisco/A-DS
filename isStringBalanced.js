@@ -10,18 +10,19 @@
 function isBalanced (string) {
   let stack = []
   const l = string.length;
+  const check = [{open: '(', close: ')'}, {open: '[', close: ']'}, {open: '{', close: '}'}]
 
   for (let i = 0; i < l; i++) {
-    if (string.charAt(i) === '(') stack.push(')');
-    if (string.charAt(i) === '[') stack.push(']');
-    if (string.charAt(i) === '{') stack.push('}');
+  	const elm = check.find(element => string.charAt(i) === element.open);
 
-      if ([')', ']', '}'].includes(string.charAt(i))) {
-        if (stack[stack.length - 1] !== string.charAt(i)) return false;
+  	if (elm != null) stack.push(elm.close);
+    
+    if ([')', ']', '}'].includes(string.charAt(i))) {
+      if (stack[stack.length - 1] !== string.charAt(i)) return false;
 
-        stack.splice(-1, 1);
-      }
+      stack.splice(-1, 1);
+    }
   }
 
-  return stack.length < 1
+  return stack.length < 1;
 }
