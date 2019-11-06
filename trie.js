@@ -1,83 +1,75 @@
 class Node {
-	constructor(char, children, isWord, count) {
-		this.char = char;
-		this.children = children || new Map();
-		this.isWord = isWord || false;
-		this.count = count || 0;
-	}
+  constructor(char, children, isWord, count) {
+    this.char = char;
+    this.children = children || new Map();
+    this.isWord = isWord || false;
+    this.count = count || 0;
+  }
 
-	getChild (char) {
-		return this.children.get(char);
-	}
+  getChild (char) {
+    return this.children.get(char);
+  }
 
-	setChild (char, node) {
-		this.children.set(char, node);
-	}
+  setChild (char, node) {
+    this.children.set(char, node);
+  }
 
-	getNodeByString (string) {
-		if (string.length === 1) return this.getChild(string);
-	
-		const child = this.getChild(string.charAt(0));
+  getNodeByString (string) {
+    if (string.length === 1) return this.getChild(string);
+  
+    const child = this.getChild(string.charAt(0));
 
-		if (child == null) return;
+    if (child == null) return;
 
-		return child.getNodeByString(string.slice(1));
-	}
+    return child.getNodeByString(string.slice(1));
+  }
 }
 
 // Implement Contact list:
 // - Add contact
 // - Given a string, return how many contacts begin with that string
 
-
 class Trie {
-	constructor() {
-		this.root = new Node('*');
-	}
+  constructor() {
+    this.root = new Node('*');
+  }
 
-	addString (string) {
-		const l = string.length;
-		let node = this.root;
-		let child;
+  addString (string) {
+    const l = string.length;
+    let node = this.root;
+    let child;
 
-		for (let i = 0; i < l; i++) {
-			child = node.getChild(string.charAt(i));
+    for (let i = 0; i < l; i++) {
+      child = node.getChild(string.charAt(i));
 
-			if (child == null) {
-				child = new Node(string.charAt(i));
+      if (child == null) {
+        child = new Node(string.charAt(i));
 
-				node.setChild(string.charAt(i), child)
-			}
+        node.setChild(string.charAt(i), child)
+      }
 
-			node = child;
-		}
+      node = child;
+    }
 
-		node.isWord = true
-		node.count++;
-	}
+    node.isWord = true
+    node.count++;
+  }
 
-	findCount (string) {
-		const node = this.root.getNodeByString(string);
+  findCount (string) {
+    const node = this.root.getNodeByString(string);
 
-		if (node == null) return 0;
+    if (node == null) return 0;
 
-		return Trie.count(node);
-	}
+    return Trie.count(node);
+  }
 
-	static count (node) {
-		const iterator = node.children.entries();
-		let c = node.count;
-		let next = iterator.next().value
+  static count (node) {
+    let c = node.count;
+    
+    for(const [i, entry] of node.children.entries()) {
+      c += Trie.count(entry);
+    }
 
-		while (next != null) {
-			c += Trie.count(next[1]);
-			next = iterator.next().value;
-		}
-
-		return c;
-	}
+    return c;
+  }
 }
-
-const trie = new Trie();
-trie.addString('Fran');
-trie.findCount('Fr');
