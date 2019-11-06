@@ -15,7 +15,7 @@ class Queue {
     return this.head == null
   }
 
-  peek () {
+  getHead () {
     return this.head != null ? this.head.data : undefined;
   }
 
@@ -48,7 +48,7 @@ class Stack {
     return this.top == null
   }
 
-  peek () {
+  getTop () {
     return this.top != null ? this.top.data : undefined;
   }
 
