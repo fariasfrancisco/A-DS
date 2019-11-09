@@ -6,11 +6,11 @@ class Node {
 }
 
 class LinkedList {
-  constructor (node) {
-    this.this.head = node;
+  constructor(node) {
+    this.head = node;
   }
 
-  getLastElement () {
+  getLastElement() {
     let node = this.head;
 
     while (node.next != null) {
@@ -20,7 +20,7 @@ class LinkedList {
     return node;
   }
 
-  getElementAt (index) {
+  getElementAt(index) {
     if (index === 0) return this.head;
 
     let i = 0;
@@ -36,7 +36,7 @@ class LinkedList {
     return node;
   }
 
-  insertElement (data) {
+  insertElement(data) {
     if (this.head == null) {
       this.head = new Node(data, null);
 
@@ -48,7 +48,7 @@ class LinkedList {
     lastNode.next = new Node(data, null);
   }
 
-  insertElementAt (index, data) {
+  insertElementAt(index, data) {
     const newNode = new Node(data);
 
     if (index === 0) {
@@ -69,7 +69,7 @@ class LinkedList {
     node.next = newNode;
   }
 
-  deleteLastElement () {
+  deleteLastElement() {
     if (this.head == null) return;
 
     if (this.head.next == null) {
@@ -83,13 +83,13 @@ class LinkedList {
 
     while (node.next != null) {
       previous = node;
-        node = node.next;
-      }
+      node = node.next;
+    }
 
-      previous.next = null;
+    previous.next = null;
   }
 
-  deleteElementAt (index) {
+  deleteElementAt(index) {
     if (this.head == null) return;
 
     if (index === 0) {
@@ -109,16 +109,16 @@ class LinkedList {
     previous.next = node.next;
   }
 
-  deleteByKey (key) {
+  deleteByKey(key) {
     if (this.head == null) return;
-    
+
     if (this.head.data === key) {
       this.head = this.head.next;
 
       return;
     }
 
-    const node = this.head;
+    let node = this.head;
 
     while (node.next != null && node.next.data !== key) {
       node = node.next;
@@ -129,7 +129,7 @@ class LinkedList {
     node.next = node.next.next;
   }
 
-  printList () {
+  printList() {
     let node = this.head;
     console.log(node.data);
 
@@ -140,7 +140,7 @@ class LinkedList {
     }
   }
 
-  getLength () {
+  getLength() {
     let length = 1;
     let element = this.head;
 
@@ -152,16 +152,14 @@ class LinkedList {
     return length;
   }
 
-  getNodeByKey (key) {
+  getNodeByKey(key) {
     if (this.head == null) return;
 
-    const node = this.head;
+    let node = this.head;
 
-    while (node.data !== key && node != null) {
+    while (node.data !== key) {
       node = node.next;
     }
-
-    if (node == null) return;
 
     return node;
   }

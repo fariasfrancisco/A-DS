@@ -1,14 +1,14 @@
 function sherlockAndAnagrams(s) {
-  function getSubstrings (string) {
+  function getSubstrings(string) {
     const l = string.length;
     const substrings = [];
 
     for (let i = 0; i < l; i++) {
       substrings.push([]);
-      
+
       for (let j = 0; j < l; j++) {
         if (j + i + 1 > l) break;
-        
+
         substrings[i].push(string.slice(j, j + i + 1));
       }
     }
@@ -16,7 +16,7 @@ function sherlockAndAnagrams(s) {
     return substrings;
   }
 
-  function areAnagrams (s1, s2) {
+  function areAnagrams(s1, s2) {
     const m1 = new Map();
     const m2 = new Map();
     const l = s1.length;
@@ -44,11 +44,11 @@ function sherlockAndAnagrams(s) {
   const subs = getSubstrings(s);
   let l, count = 0;
 
-  for(const substrings of subs) {
+  for (const substrings of subs) {
     l = substrings.length;
-    
-    for(let i = 0; i < l; i++) {
-      for(let j = i + 1; j < l; j++) {
+
+    for (let i = 0; i < l; i++) {
+      for (let j = i + 1; j < l; j++) {
         if (areAnagrams(substrings[i], substrings[j])) count++;
       }
     }

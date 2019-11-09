@@ -1,7 +1,7 @@
-function canWriteNote (magazine, note) {
+function canWriteNote(magazine, note) {
   const magazineMap = new Map();
   let count;
-  
+
   for (const word of magazine) {
     magazineMap.set(word, magazineMap.has(word) ? magazineMap.get(word) + 1 : 1);
   }

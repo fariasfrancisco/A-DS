@@ -8,21 +8,19 @@ class Node {
 
 let HEAD = new Node(1);
 
-function insertElementLast (data) {
+function insertElementLast(data) {
   let node = HEAD;
 
   while (node.next != null) {
     node = node.next;
   }
 
-  const newNode = new Node(data, null, node);
-
-  node.next = newNode;
+  node.next = new Node(data, null, node);
 }
 
-function insertElementFirst (data) {
+function insertElementFirst(data) {
   const newNode = new Node(data, HEAD);
-	
+
   HEAD.prev = newNode;
   HEAD = newNode;
 }
@@ -40,9 +38,7 @@ function insertElementAt(index, data) {
 
   if (i < index) {
     if (i + 1 === index) {
-      const newNode = new Node(data, null, node);
-
-      node.next = newNode;
+      node.next = new Node(data, null, node);
 
       return;
     }
@@ -56,7 +52,7 @@ function insertElementAt(index, data) {
   node.prev = newNode;
 }
 
-function deleteLastElement () {
+function deleteLastElement() {
   let node = HEAD;
 
   while (node.next != null) {
@@ -64,20 +60,16 @@ function deleteLastElement () {
   }
 
   node.prev.next = null;
-
-  delete node;
 }
 
-function deleteFirstElement () {
+function deleteFirstElement() {
   const node = HEAD;
-	
+
   node.next.prev = null;
   HEAD = node.next;
-	
-  delete node;
 }
 
-function deleteElementAt (index) {
+function deleteElementAt(index) {
   if (index === 0) return deleteFirstElement();
 
   let node = HEAD;
@@ -93,6 +85,4 @@ function deleteElementAt (index) {
   node.prev.next = node.next;
 
   if (node.next != null) node.next.prev = node.prev;
-
-  delete node;
 }

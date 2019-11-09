@@ -11,22 +11,22 @@ class Queue {
     this.tail = node; // Add Here
   }
 
-  isEmpty () {
+  isEmpty() {
     return this.head == null
   }
 
-  getHead () {
+  getHead() {
     return this.head != null ? this.head.data : undefined;
   }
 
-  addNode (data) {
+  addNode(data) {
     const node = new Node(data);
 
     this.tail.next = node;
     this.tail = node;
   }
 
-  removeNode () {
+  removeNode() {
     if (this.head == null) return console.error('No Nodes in Queue');
 
     const data = this.head.data;
@@ -44,22 +44,20 @@ class Stack {
     this.top = node;
   }
 
-  isEmpty () {
+  isEmpty() {
     return this.top == null
   }
 
-  getTop () {
+  getTop() {
     return this.top != null ? this.top.data : undefined;
   }
 
-  pushNode (data) {
-    const node = new Node(data, this.top);
-
-    this.top = node;
+  pushNode(data) {
+    this.top = new Node(data, this.top);
   }
 
-  popNode () {
-    if (this.top == null) return console.error('No Nodes in Stack');
+  popNode() {
+    if (this.top == null) return;
 
     const data = this.top.data;
 

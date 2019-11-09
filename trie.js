@@ -6,17 +6,17 @@ class Node {
     this.count = count || 0;
   }
 
-  getChild (char) {
+  getChild(char) {
     return this.children.get(char);
   }
 
-  setChild (char, node) {
+  setChild(char, node) {
     this.children.set(char, node);
   }
 
-  getNodeByString (string) {
+  getNodeByString(string) {
     if (string.length === 1) return this.getChild(string);
-  
+
     const child = this.getChild(string.charAt(0));
 
     if (child == null) return;
@@ -34,7 +34,7 @@ class Trie {
     this.root = new Node('*');
   }
 
-  addString (string) {
+  addString(string) {
     const l = string.length;
     let node = this.root;
     let child;
@@ -55,7 +55,7 @@ class Trie {
     node.count++;
   }
 
-  findCount (string) {
+  findCount(string) {
     const node = this.root.getNodeByString(string);
 
     if (node == null) return 0;
@@ -63,10 +63,10 @@ class Trie {
     return Trie.count(node);
   }
 
-  static count (node) {
+  static count(node) {
     let c = node.count;
-    
-    for(const [i, entry] of node.children.entries()) {
+
+    for (const [i, entry] of node.children.entries()) {
       c += Trie.count(entry);
     }
 

@@ -7,12 +7,12 @@ class Node {
 }
 
 class Tree {
-  constructor (node) {
+  constructor(node) {
     this.root = node;
   }
 
-  isBST () {
-    function checkRange (node, min, max) {
+  isBST() {
+    function checkRange(node, min, max) {
       if (node == null) return true;
       if (node.data < min || node.data > max) return false;
 
@@ -22,33 +22,24 @@ class Tree {
     return checkRange(this.root, Number.MIN_VALUE, Number.MAX_VALUE)
   }
 
-  insertNode (data) {
+  insertNode(data) {
     if (this.root == null) {
       this.root = new Node(data);
 
       return;
     }
 
-    function insert (node, data) {
-      if (data <= node.data) {
-        if (node.left == null) {
-          node.left = new Node(data);
-        } else {
-          insert(node.left, data)
-        }
-      } else {
-        if (node.right == null) {
-          node.right = new Node(data);
-        } else {
-          insert(node.right, data)
-        }
-      }
+    function insert(node, data) {
+      const side = data <= node.data ? 'left' : 'right';
+
+      if (node[side] == null) node[side] = new Node(data);
+      else insert(node[side], data);
     }
 
     insert(this.root, data);
   }
 
-  containsData (data) {
+  containsData(data) {
     if (this.root == null) return false;
 
     function contains(node, data) {
@@ -59,28 +50,30 @@ class Tree {
     }
   }
 
-  printInOrder () {
+  printInOrder() {
     if (this.root == null) return;
 
-    function print (node) {
+    function print(node) {
       if (node.left != null) print(node.left);
+
       console.log(node.data);
+
       if (node.right != null) print(node.right);
     }
 
-    print(this.root)
+    print(this.root);
   }
 
-  balanceTree () {
+  balanceTree() {
     if (this.root == null) return;
-    
+
     const array = [];
 
-    function getInOrder (node) {
+    function getInOrder(node) {
       if (node.left != null) getInOrder(node.left);
-      
+
       array.push(node.data);
-      
+
       if (node.right != null) getInOrder(node.right);
     }
 
@@ -89,15 +82,15 @@ class Tree {
     this.root = Tree.buildNodeWithArray(array)
   }
 
-  static buildNodeWithArray (array) {
-      if (array.length < 1) return;
+  static buildNodeWithArray(array) {
+    if (array.length < 1) return;
 
-      const i = Math.floor(array.length / 2);
+    const i = Math.floor(array.length / 2);
 
-      return new Node(array[i], Tree.buildNodeWithArray(array.slice(0, i)), Tree.buildNodeWithArray(array.slice(i + 1)));
-    }
+    return new Node(array[i], Tree.buildNodeWithArray(array.slice(0, i)), Tree.buildNodeWithArray(array.slice(i + 1)));
+  }
 
-  static getBSTFromSortedArray (array) {
+  static getBSTFromSortedArray(array) {
     return new Tree(Tree.buildNodeWithArray(array));
   }
 }

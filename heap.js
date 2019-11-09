@@ -4,54 +4,54 @@ class Heap {
     this.comparator = comparator || ((a, b) => a < b)
   }
 
-  static getLeftChildIndex (index) {
+  static getLeftChildIndex(index) {
     return index * 2 + 1;
   }
 
-  static getRightChildIndex (index) {
+  static getRightChildIndex(index) {
     return index * 2 + 2;
   }
 
-  static getParentIndex (index) {
+  static getParentIndex(index) {
     return Math.floor((index - 1) / 2);
   }
 
-  static hasParent (index) {
+  static hasParent(index) {
     return Heap.getParentIndex(index) >= 0;
   }
 
-  hasLeftChild (index) {
+  hasLeftChild(index) {
     return Heap.getLeftChildIndex(index) < this.array.length;
   }
 
-  getLeftChild (index) {
+  getLeftChild(index) {
     return this.array[Heap.getLeftChildIndex(index)];
   }
 
-  hasRightChild (index) {
+  hasRightChild(index) {
     return Heap.getRightChildIndex(index) < this.array.length;
   }
 
-  getRightChild (index) {
+  getRightChild(index) {
     return this.array[Heap.getRightChildIndex(index)];
   }
 
-  getParent (index) {
+  getParent(index) {
     return this.array[Heap.getParentIndex(index)];
   }
 
-  swapValues (i, j) {
+  swapValues(i, j) {
     const aux = this.array[i];
 
     this.array[i] = this.array[j];
     this.array[j] = aux;
   }
 
-  peek () {
+  peek() {
     return this.array[0];
   }
 
-  poll () {
+  poll() {
     const item = this.peek();
 
     this.array[0] = this.array[this.array.length - 1];
@@ -62,12 +62,12 @@ class Heap {
     return item;
   }
 
-  add (item) {
+  add(item) {
     this.array.push(item);
     this.heapifyUp();
   }
 
-  heapifyUp () {
+  heapifyUp() {
     let index = this.array.length - 1;
 
     while (Heap.hasParent(index) && this.comparator(this.array[index], this.getParent(index))) {
@@ -77,18 +77,18 @@ class Heap {
     }
   }
 
-  heapifyDown () {
+  heapifyDown() {
     let index = 0;
     let childIndex;
 
     while (this.hasLeftChild(index)) {
-      if (this.hasRightChild(index) && this.comparator(this.getRightChild(index), this.getLeftChild(index))) childIndex =  Heap.getRightChildIndex(index);
-      else childIndex =  Heap.getLeftChildIndex(index);
+      if (this.hasRightChild(index) && this.comparator(this.getRightChild(index), this.getLeftChild(index))) childIndex = Heap.getRightChildIndex(index);
+      else childIndex = Heap.getLeftChildIndex(index);
 
       if (this.comparator(this.array[index], this.array[childIndex])) break;
 
       this.swapValues(index, childIndex);
-      
+
       index = childIndex;
     }
   }
@@ -96,15 +96,15 @@ class Heap {
 
 // Continous median problem. Read an array of numbers one by one and print the median of all numbers read thus far
 
-function getMedians (array) {
-  function addNumber (number) {
+function getMedians(array) {
+  function addNumber(number) {
     if (lowers.array.length < 1 || number < lowers.peek()) lowers.add(number);
     else highers.add(number);
 
     rebalance();
   }
 
-  function rebalance () {
+  function rebalance() {
     const highersSize = highers.array.length;
     const lowersSize = lowers.array.length;
 
@@ -114,13 +114,13 @@ function getMedians (array) {
     }
   }
 
-  function getMedian () {
+  function getMedian() {
     const highersSize = highers.array.length;
     const lowersSize = lowers.array.length;
 
     if (highersSize > lowersSize) return highers.peek();
     else if (lowersSize > highersSize) return lowers.peek();
-    else return  (highers.peek() + lowers.peek()) / 2;
+    else return (highers.peek() + lowers.peek()) / 2;
   }
 
   const highers = new Heap([]);
@@ -130,7 +130,7 @@ function getMedians (array) {
 
   for (let i = 0; i < l; i++) {
     addNumber(array[i]);
-    
+
     medians[i] = getMedian();
   }
 

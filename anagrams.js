@@ -1,5 +1,5 @@
 // Given two string, how many characters should be removed from each string to make them anagrams
-function countCharactersToAnagram (word1, word2) {
+function countCharactersToAnagram(word1, word2) {
   const l1 = word1.length;
   const l2 = word2.length;
   const map1 = new Map();
@@ -13,16 +13,16 @@ function countCharactersToAnagram (word1, word2) {
 
   for (i = 0; i < l1; i++) {
     charCount1 = map1.get(word1.charAt(i))
-    
+
     if (charCount1 != null) map1.set(word1.charAt(i), charCount1 + 1)
     else map1.set(word1.charAt(i), 1)
 
     set.add(word1.charAt(i))
   }
 
-  for (i = 0; i < l2; i++) {
+  for (i = 0; i < l2; i++) {s
     charCount2 = map2.get(word2.charAt(i))
-    
+
     if (charCount2 != null) map2.set(word2.charAt(i), charCount2 + 1)
     else map2.set(word2.charAt(i), 1)
 
